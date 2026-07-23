@@ -227,7 +227,7 @@ export const Home: React.FC = () => {
                   <img 
                     src={project.image_url} 
                     alt={project.title}
-                    className={`w-full h-full grayscale hover:grayscale-0 transition-all duration-500 ${project.project_type === 'mobile' ? 'object-contain p-2' : 'object-cover'}`}
+                    className={`w-full h-full transition-all duration-500 ${project.project_type === 'mobile' ? 'object-contain p-2' : 'object-cover'}`}
                   />
                 </div>
                 
