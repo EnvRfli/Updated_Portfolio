@@ -207,7 +207,7 @@ export const Home: React.FC = () => {
         )}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-white border-4 border-neo-border transform rotate-45 shadow-brutal"></div>
+            <div className="w-12 h-12 bg-neo-primary border-4 border-neo-border transform rotate-45 shadow-brutal"></div>
             <h2 className="text-4xl md:text-5xl border-b-4 border-neo-border inline-block pb-2">{t.projectsTitle}</h2>
           </div>
 
