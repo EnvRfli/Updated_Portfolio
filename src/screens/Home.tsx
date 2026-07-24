@@ -104,7 +104,7 @@ export const Home: React.FC = () => {
               {profile.name}
             </span>
           </h1>
-          <p className="text-xl md:text-2xl font-body font-medium leading-relaxed max-w-2xl bg-neo-card text-neo-bg p-6 border-4 border-neo-border shadow-brutal relative bg-[#f4f0e6]">
+          <p className="text-xl md:text-2xl font-body font-medium leading-relaxed max-w-2xl bg-neo-card text-neo-bg p-6 border-4 border-neo-border shadow-brutal relative">
             <span className="absolute -top-4 -left-4 w-8 h-8 bg-neo-secondary border-4 border-neo-border rounded-full"></span>
             {profile.role}
             <br />
@@ -210,29 +210,29 @@ export const Home: React.FC = () => {
             <div className="w-12 h-12 bg-white border-4 border-neo-border transform rotate-45 shadow-brutal"></div>
             <h2 className="text-4xl md:text-5xl border-b-4 border-neo-border inline-block pb-2">{t.projectsTitle}</h2>
           </div>
-          
+
           <div className="flex flex-wrap gap-4 items-center">
-            <button 
-              onClick={() => setProjectFilter('all')} 
+            <button
+              onClick={() => setProjectFilter('all')}
               className={`font-bold font-heading border-4 border-neo-border px-6 py-2 transition-all shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${projectFilter === 'all' ? 'bg-neo-primary text-white' : 'bg-white text-neo-bg'}`}
             >
               All
             </button>
-            <button 
-              onClick={() => setProjectFilter('mobile')} 
+            <button
+              onClick={() => setProjectFilter('mobile')}
               className={`font-bold font-heading border-4 border-neo-border px-6 py-2 transition-all shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${projectFilter === 'mobile' ? 'bg-neo-primary text-white' : 'bg-white text-neo-bg'}`}
             >
               Mobile
             </button>
-            <button 
-              onClick={() => setProjectFilter('web')} 
+            <button
+              onClick={() => setProjectFilter('web')}
               className={`font-bold font-heading border-4 border-neo-border px-6 py-2 transition-all shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${projectFilter === 'web' ? 'bg-neo-primary text-white' : 'bg-white text-neo-bg'}`}
             >
               Website
             </button>
           </div>
         </div>
-        
+
         {isAdmin && (
           <div className="flex justify-end">
             <BrutalButton onClick={() => setShowProjectForm(true)} className="flex items-center gap-2">
@@ -260,48 +260,48 @@ export const Home: React.FC = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 >
                   <BrutalCard hoverEffect className="flex flex-col h-full bg-[#fdfbf7]">
-                
-                {/* Image Container */}
-                <div className={`w-full border-4 border-neo-border bg-neo-card mb-4 overflow-hidden flex items-center justify-center ${project.project_type === 'mobile' ? 'h-56' : 'h-48'}`}>
-                  <img 
-                    src={project.image_url} 
-                    alt={project.title}
-                    className={`w-full h-full transition-all duration-500 ${project.project_type === 'mobile' ? 'object-contain p-2' : 'object-cover'}`}
-                  />
-                </div>
-                
-                <div className="flex justify-between items-start mb-2 gap-2">
-                  <h3 className="text-2xl font-bold text-neo-primary line-clamp-2">{project.title}</h3>
-                  <BrutalBadge className="uppercase text-[10px] bg-neo-primary text-white whitespace-nowrap mt-1">{project.project_type}</BrutalBadge>
-                </div>
-                
-                <p className="font-body mb-6 text-base flex-grow text-neo-bg">
-                  {lang === 'en' ? project.description_en : project.description_id}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t-2 border-neo-border mb-6">
-                  {project.tags.map(tag => (
-                    <BrutalBadge key={tag} className="text-xs bg-white text-neo-bg">{tag}</BrutalBadge>
-                  ))}
-                </div>
-                
-                <div className="flex gap-2 mt-auto">
-                  {project.show_demo && project.demo_url && (
-                    <a href={project.demo_url} target="_blank" rel="noreferrer" className="flex-1">
-                      <BrutalButton className="w-full justify-center flex items-center gap-2 text-sm py-2 px-2">
-                        <FaExternalLinkAlt /> {t.liveDemo}
-                      </BrutalButton>
-                    </a>
-                  )}
-                  {project.show_repo && project.repo_url && (
-                    <a href={project.repo_url} target="_blank" rel="noreferrer" className="flex-1">
-                      <BrutalButton variant="secondary" className="w-full justify-center flex items-center gap-2 text-sm py-2 px-2">
-                        <FaGithub /> {t.repository}
-                      </BrutalButton>
-                    </a>
-                  )}
-                </div>
-              </BrutalCard>
+
+                    {/* Image Container */}
+                    <div className={`w-full border-4 border-neo-border bg-neo-card mb-4 overflow-hidden flex items-center justify-center ${project.project_type === 'mobile' ? 'h-56' : 'h-48'}`}>
+                      <img
+                        src={project.image_url}
+                        alt={project.title}
+                        className={`w-full h-full transition-all duration-500 ${project.project_type === 'mobile' ? 'object-contain p-2' : 'object-cover'}`}
+                      />
+                    </div>
+
+                    <div className="flex justify-between items-start mb-2 gap-2">
+                      <h3 className="text-2xl font-bold text-neo-primary line-clamp-2">{project.title}</h3>
+                      <BrutalBadge className="uppercase text-[10px] bg-neo-primary text-white whitespace-nowrap mt-1">{project.project_type}</BrutalBadge>
+                    </div>
+
+                    <p className="font-body mb-6 text-base flex-grow text-neo-bg">
+                      {lang === 'en' ? project.description_en : project.description_id}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t-2 border-neo-border mb-6">
+                      {project.tags.map(tag => (
+                        <BrutalBadge key={tag} className="text-xs bg-white text-neo-bg">{tag}</BrutalBadge>
+                      ))}
+                    </div>
+
+                    <div className="flex gap-2 mt-auto">
+                      {project.show_demo && project.demo_url && (
+                        <a href={project.demo_url} target="_blank" rel="noreferrer" className="flex-1">
+                          <BrutalButton className="w-full justify-center flex items-center gap-2 text-sm py-2 px-2">
+                            <FaExternalLinkAlt /> {t.liveDemo}
+                          </BrutalButton>
+                        </a>
+                      )}
+                      {project.show_repo && project.repo_url && (
+                        <a href={project.repo_url} target="_blank" rel="noreferrer" className="flex-1">
+                          <BrutalButton variant="secondary" className="w-full justify-center flex items-center gap-2 text-sm py-2 px-2">
+                            <FaGithub /> {t.repository}
+                          </BrutalButton>
+                        </a>
+                      )}
+                    </div>
+                  </BrutalCard>
                 </motion.div>
               ))}
             </AnimatePresence>
