@@ -9,6 +9,7 @@ import { supabase } from '../lib/supabase';
 import type { Project } from '../models/project.types';
 import { ProjectForm } from '../components/admin/ProjectForm';
 import { FaGithub, FaExternalLinkAlt, FaPlus } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import profileImg from '../assets/profile3.jpeg';
 
@@ -19,6 +20,7 @@ export const Home: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loadingProjects, setLoadingProjects] = useState(true);
   const [showProjectForm, setShowProjectForm] = useState(false);
+  const [projectFilter, setProjectFilter] = useState<'all' | 'mobile' | 'web'>('all');
 
   const profile = mockProfile[lang];
   const experiences = mockExperiences[lang];
@@ -82,6 +84,11 @@ export const Home: React.FC = () => {
   useEffect(() => {
     fetchProjects();
   }, []);
+
+  const filteredProjects = projects.filter(p => {
+    if (projectFilter === 'all') return true;
+    return p.project_type === projectFilter;
+  });
 
   return (
     <div className="space-y-32">
@@ -198,9 +205,32 @@ export const Home: React.FC = () => {
         {showProjectForm && (
           <ProjectForm onClose={() => setShowProjectForm(false)} onSuccess={fetchProjects} />
         )}
-        <div className="flex items-center gap-4 mb-8">
-          <div className="w-12 h-12 bg-white border-4 border-neo-border transform rotate-45 shadow-brutal"></div>
-          <h2 className="text-4xl md:text-5xl border-b-4 border-neo-border inline-block pb-2">{t.projectsTitle}</h2>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white border-4 border-neo-border transform rotate-45 shadow-brutal"></div>
+            <h2 className="text-4xl md:text-5xl border-b-4 border-neo-border inline-block pb-2">{t.projectsTitle}</h2>
+          </div>
+          
+          <div className="flex flex-wrap gap-4 items-center">
+            <button 
+              onClick={() => setProjectFilter('all')} 
+              className={`font-bold font-heading border-4 border-neo-border px-6 py-2 transition-all shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${projectFilter === 'all' ? 'bg-neo-primary text-white' : 'bg-white text-neo-bg'}`}
+            >
+              All
+            </button>
+            <button 
+              onClick={() => setProjectFilter('mobile')} 
+              className={`font-bold font-heading border-4 border-neo-border px-6 py-2 transition-all shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${projectFilter === 'mobile' ? 'bg-neo-primary text-white' : 'bg-white text-neo-bg'}`}
+            >
+              Mobile
+            </button>
+            <button 
+              onClick={() => setProjectFilter('web')} 
+              className={`font-bold font-heading border-4 border-neo-border px-6 py-2 transition-all shadow-brutal hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none ${projectFilter === 'web' ? 'bg-neo-primary text-white' : 'bg-white text-neo-bg'}`}
+            >
+              Website
+            </button>
+          </div>
         </div>
         
         {isAdmin && (
@@ -218,9 +248,18 @@ export const Home: React.FC = () => {
             {t.noProjects}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
-              <BrutalCard key={project.id} hoverEffect className="flex flex-col h-full bg-[#fdfbf7]">
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                >
+                  <BrutalCard hoverEffect className="flex flex-col h-full bg-[#fdfbf7]">
                 
                 {/* Image Container */}
                 <div className={`w-full border-4 border-neo-border bg-neo-card mb-4 overflow-hidden flex items-center justify-center ${project.project_type === 'mobile' ? 'h-56' : 'h-48'}`}>
@@ -263,8 +302,10 @@ export const Home: React.FC = () => {
                   )}
                 </div>
               </BrutalCard>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         )}
       </section>
 
